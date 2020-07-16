@@ -1,4 +1,6 @@
 <?php namespace App\Controllers;
+use CodeIgniter\Controller;
+use App\Models\M_user;
 
 class Login extends BaseController
 {
@@ -16,9 +18,11 @@ class Login extends BaseController
 
 		$cek = $muser->get_data($email,$password);
 
-		if (($cek['email'] == $email) && ($cek['password'] == $password))
+		if (($cek['user_email'] == $email) && ($cek['user_pass'] == $password))
 		{
-			session()->set('email', $cek['email']);
+			session()->set('user_email', $cek['user_email']);
+			session()->set('user_nama', $cek['user_nama']);
+			session()->set('user_id', $cek['user_id']);
 			return redirect()->to(base_url('user'));
 		} else {
 			session()->setFlashdata('gagal', 'Email / Password salah!');
